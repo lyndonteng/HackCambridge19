@@ -12,10 +12,13 @@ import scorecreator.draw_the_score
 
 #takes an audio file, outputs an array of trigger times.
 def note_beats(filename):
+    print('loading audio file...\n')
     y, sr = librosa.load(filename)
-
+    
+    print('putting file through fourier transform to separate harmonic and percussive\n')
     D = librosa.stft(y)
-
+    
+    print('getting melody rhythm...\n')
     D_harmonic, D_percussive = librosa.decompose.hpss(D)
 
     y_harmonic = librosa.istft(D_harmonic)
@@ -35,6 +38,7 @@ def note_beats(filename):
     for i in indexes:
         times_peaks.append(times[i])
         
+    print('melody rhythm generated!\n')
     return times_peaks
 
 
@@ -142,7 +146,9 @@ def miditonote(array):
 def get_melody(filename):
     
     # This is how we load audio using Librosa
+    print('loading audio...\n')
     audio, sr = librosa.load(filename, sr=44100, mono=True)
+    print('getting melody line...\n')
     data = vamp.collect(audio, sr, "mtg-melodia:melodia")
     hop, melody = data['vector']
     timestamps = 8 * 128/44100.0 + np.arange(len(melody)) * (128/44100.0)
@@ -151,6 +157,7 @@ def get_melody(filename):
     melody_pos = melody[:]
     melody_pos[melody<=0] = None
     
+    print('converting melody line to midi...\n)
     midi = 69 + 12*np.log2(melody_pos/440.)
     midi = np.round(midi)
     midi.astype(int)
@@ -175,5 +182,6 @@ if __name__== "__main__":
     midi = get_melody(filename)
     chords = miditonote(midi)
     output_array=switch(chords,filename)
+    print('generating score...\n')
     draw_the_score(output_array[:,0], output_array[:,1])
     
