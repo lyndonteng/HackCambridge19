@@ -192,4 +192,5 @@ if __name__== "__main__":
     chords = miditonote(midi)
     print('generating score...\n')
     draw_the_score(switch(chords, filename)[0], switch(chords, filename)[1], get_beats(filename)[1])
+
     
