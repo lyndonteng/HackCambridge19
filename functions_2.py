@@ -241,9 +241,9 @@ def remove_zeros(notes, actual_beats):
         
             list1.append(notes[m])
             list2.append(actual_beats[m])
-        if(actual_beats[m]==0):
-            count = count+1
-            if round()
+        #if(actual_beats[m]==0):
+         #   count = count+1
+          #  if round()
             
         m = m+1
         
