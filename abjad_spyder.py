@@ -9,8 +9,8 @@ from abjad import *
 import abjad.top
 notes = []
 
-note = abjad.Note(0, Duration(1,4))
-abjad.play(note) 
+note = abjad.Note(0, Duration(1,16))
+abjad.show(note) 
 
 """
 rest = abjad.Rest('r16')
