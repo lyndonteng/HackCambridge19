@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 import audiolazy
 from peakutils.plot import plot as pplot
 from IPython import get_ipython
-import scorecreator.draw_the_score
-
+from scorecreator import draw_the_score
 #takes an audio file, outputs an array of trigger times.
 def note_beats(filename):
     y, sr = librosa.load(filename)
@@ -36,6 +35,14 @@ def note_beats(filename):
         times_peaks.append(times[i])
         
     return times_peaks
+
+def get_beats(filename):
+    y, sr = librosa.load(filename)
+    # Compute the track duration
+    track_duration = librosa.get_duration(y=y, sr=sr)
+    # Extract tempo and beat estimates
+    tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
+    return track_duration, tempo
 
 
 #converts array of midi values to array of chords
@@ -161,19 +168,20 @@ def get_melody(filename):
 #takes array of chords as input and a filepath for beat time to consume
 #outputs an array of chords corresponding to the trigger times on beat_time
 def switch(chords, filepath):
-    switch=[]
+    time_list = []
+    note_list = []
     for i in note_beats(filepath):
         j = int(i/0.0029) + 15
-        switch.append([i, chords[j]])
-    return switch
+        time_list.append(i)
+        note_list.append(chords[j])
+    return time_list, note_list
 
 #runs module
 if __name__== "__main__":
-    #"~/Desktop/2CELLOS_-_Despacito_OFFICIAL_VIDEO-D9LrEXF3USs.wav"
-    test = input("enter the audio file directory")
+    #"/Users/ongrayyi/Documents/GitHub/HackCambridge19/FlaskWebProject2/static/data/2CELLOS_-_Despacito_OFFICIAL_VIDEO-D9LrEXF3USs.wav"
+    test= "/Users/ongrayyi/Documents/GitHub/HackCambridge19/FlaskWebProject2/static/data/2CELLOS_-_Despacito_OFFICIAL_VIDEO-D9LrEXF3USs.wav"
     filename = os.path.expanduser(test)
     midi = get_melody(filename)
     chords = miditonote(midi)
-    output_array=switch(chords,filename)
-    draw_the_score(output_array[:,0], output_array[:,1])
+    draw_the_score(switch(chords, filename)[0], switch(chords, filename)[1], get_beats(filename)[1])
     
