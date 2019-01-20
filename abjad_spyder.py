@@ -6,8 +6,13 @@ Created on Sat Jan 19 15:09:20 2019
 """
 
 from abjad import *
+import abjad.top
 notes = []
 
+note = abjad.Note(0, Duration(1,4))
+abjad.play(note) 
+
+"""
 rest = abjad.Rest('r16')
 #abjad.show(rest)
 
@@ -19,4 +24,5 @@ notes.append(rest)
 
 staff = abjad.Staff(notes)
 abjad.show(staff)
+"""
 
