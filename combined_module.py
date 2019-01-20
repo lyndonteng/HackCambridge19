@@ -164,7 +164,7 @@ def get_melody(filename):
     melody_pos = melody[:]
     melody_pos[melody<=0] = None
     
-    print('converting melody line to midi...\n)
+    print('converting melody line to midi...\n')
     midi = 69 + 12*np.log2(melody_pos/440.)
     midi = np.round(midi)
     midi.astype(int)
@@ -186,7 +186,7 @@ def switch(chords, filepath):
 #runs module
 if __name__== "__main__":
     #"/Users/ongrayyi/Documents/GitHub/HackCambridge19/FlaskWebProject2/static/data/2CELLOS_-_Despacito_OFFICIAL_VIDEO-D9LrEXF3USs.wav"
-    test= "/Users/ongrayyi/Documents/GitHub/HackCambridge19/FlaskWebProject2/static/data/2CELLOS_-_Despacito_OFFICIAL_VIDEO-D9LrEXF3USs.wav"
+    test= "/Users/ongrayyi/Desktop/2CELLOS_-_Despacito_OFFICIAL_VIDEO-D9LrEXF3USs.wav"
     filename = os.path.expanduser(test)
     midi = get_melody(filename)
     chords = miditonote(midi)
