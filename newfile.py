@@ -130,37 +130,7 @@ if __name__ == '__main__':
     
     draw_the_score(time_sec, key_pressed)
         
- 
 
-
-
-"""
-def time_approximation():
-    return 0
-
-def what_note(time_sec, note_played):
-    #function that takes in time (in seconds) and second array with note being played
-    
-    for i in range(len(time_sec)-1):
-        note_length = time_sec[i+1] - time_sec[1]
-
-def plot_notes(notes_list, time_list):
-    
-    #number_of_measures = math.ceil(len(notes_inp)/bpm)
-    
-    
-    notes = []
-    print(time_list)
-    print(len(time_list))
-    print(len(notes_list))
-    for i in range(len(notes_list)):
-        
-        duration = abjad.Duration(time_list[i], 16)
-        notes.append(abjad.Note(notes_list[i], duration))
-        
-    staff = abjad.Staff(notes)
-    abjad.show(staff)
-"""
     
         
         
